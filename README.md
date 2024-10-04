@@ -1,16 +1,16 @@
 [![GitHub release](https://img.shields.io/github/release/Antynea/grub-btrfs.svg)](https://github.com/Antynea/grub-btrfs/releases)
 ![](https://img.shields.io/github/license/Antynea/grub-btrfs.svg)
 
-## 💻 grub-btrfs 
+## 💻 grub-btrfs-fedora
 
-##### BTC donation address: `1Lbvz244WA8xbpHek9W2Y12cakM6rDe5Rt`
+##### BTC donation address for original developer (Antynea): `1Lbvz244WA8xbpHek9W2Y12cakM6rDe5Rt`
 - - -
 ### 🔎 Description:
 grub-btrfs improves the grub bootloader by adding a btrfs snapshots sub-menu, allowing the user to boot into snapshots.
 
 grub-btrfs supports manual snapshots as well as snapper, timeshift, and yabsnap created snapshots.
 
-##### Warning: booting read-only snapshots can be tricky
+##### Warning: booting read-only snapshots can be tricky AND FEDORA INSTALLS HAVE NO SEPARATE /VAR! and /VAR/LOG....
 
 If you wish to use read-only snapshots, `/var/log` or even `/var` must be on a separate subvolume.
 Otherwise, make sure your snapshots are writable.
@@ -30,32 +30,8 @@ Refer to the [documentation](https://github.com/Antynea/grub-btrfs/blob/master/i
 
 - - -
 ### 🛠️ Installation:
-#### Arch Linux
-The package is available in the extra repository [grub-btrfs](https://archlinux.org/packages/extra/any/grub-btrfs/)
-```
-pacman -S grub-btrfs
-```
-
-#### Gentoo
-grub-btrfs is only available in the Gentoo User Repository (GURU) and not in the official Gentoo repository.  
-If you have not activated the GURU yet, do so by running:
-```
-emerge -av app-eselect/eselect-repository 
-eselect repository enable guru 
-emaint sync -r guru 
-```
-If you are using Systemd on Gentoo, make sure the USE-Flag `systemd` is set. (Either globally in make.conf or in package.use for the package app-backup/grub-btrfs)
-Without Systemd USE-Flag the OpenRC-daemon of grub-btrfs will be installed.
-
-Emerge grub-btrfs via 
-`emerge app-backup/grub-btrfs`
-
-#### Kali Linux
-[grub-btrfs](http://pkg.kali.org/pkg/grub-btrfs) is available in the Kali Linux repository and can be installed with:  
-```
-apt install grub-btrfs
-```
-Booting into read-only snapshots is fully supported when choosing btrfs as the file system during a standard Kali Linux installation following [this walk-through](https://www.kali.org/docs/installation/btrfs/).
+#### Fedora
+to be detailed...
 
 #### Manual installation
 * Run `make install`
@@ -65,15 +41,13 @@ Booting into read-only snapshots is fully supported when choosing btrfs as the f
   * [grub](https://archlinux.org/packages/core/x86_64/grub/)
   * [bash >4](https://archlinux.org/packages/core/x86_64/bash/)
   * [gawk](https://archlinux.org/packages/core/x86_64/gawk/)
-  * (only when using the grub-btrfsd daemon)[inotify-tools](https://archlinux.org/packages/extra/x86_64/inotify-tools/)
+  * [inotify-tools](https://archlinux.org/packages/extra/x86_64/inotify-tools/)
 
 - - -
 ### 📚 Manual usage of grub-btrfs
 To manually generate grub snapshot entries you can run `sudo /etc/grub.d/41_snapshots-btrfs` which updates `grub-btrfs.cfg`. You then need to regenerate the GRUB configuration by running one of the following commands:
 
-* On **Arch Linux** or **Gentoo** use `grub-mkconfig -o /boot/grub/grub.cfg`.  
 * On **Fedora** use `grub2-mkconfig -o /boot/grub2/grub.cfg`  
-* On **Debian and Ubuntu based** distributions `update-grub` is a script that runs `grub-mkconfig ...`
 
 This process can be automated to occur whenever you create or delete snapshots but this process is slightly different depending upon your distributions choice on init system. See the relevant instructions for your init system below.
 
